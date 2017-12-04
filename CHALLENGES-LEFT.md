@@ -1,0 +1,84 @@
+- 00 Name generator (+ credentials)
+- 01 Higher/Lower, heads/tails
+- 04 Encryption/decryption
+- 06 Rock, paper, scissors (+ lizard, Spock)
+- 07 Project Euler
+- 08 Hangman
+- 12 Internet time ((S)NTP)
+- 13 Haiku generator
+- 15 Collatz conjecture
+- 17 Eulerian path
+- 18 Simple file explorer
+- 19 Count words in a string (lines, sentences, paragraphs, typos, &c.)
+- 20 Minesweeper
+- 21 Connect four
+- 23 4chan thread/image downloader
+- 24 Sudoku generator/solver
+- 25 Maze generator/solver (random graphs/trees)
+- 26 Radix (base) converter
+- 27 Picross solver
+- 28 Fibonacci sequence
+- 30 Cipher encryption
+- 31 Blackjack
+- 32 Dungeons & Dragons with AI
+- 33 Generate ASCII tree
+- 34 Genetic algorithms on polygons
+- 35 Benford's law
+- 36 Currency converter (+ various units, comodities, etc,; + history)
+- 37 Static website generator
+- 38 Crossword game
+- 39 Scientific calculator (CLI or GUI)
+- 40 Perlin noise
+- 41 Image viewer
+- 42 ASCII digital clock
+- 44 Dijkstra's Algorithm
+- 45 Tic-tac-toe
+- 46 Snake game
+- 47 FTP client (+ server)
+- 48 Telnet server (+ client, netcat clone?)
+- 49 IMP interpreter
+- 50 Tetris
+- 51 Conway's game of life (other cell. automata)
+- 52 Web crawler
+- 53 Text editor
+- 54 RSS feed reader
+- 55 RPN calculator
+- 56 Mandelbrot set (+ other fractals)
+- 57 Sorting algorithm1s (+ visualization)
+- 58 Custom markup -> HTML converter
+- 59 N queens problem
+- 60 Flow in a network (Ford-Fulkerson algo.)
+- 61 Credential validator (phone, email, &c.)
+- 62 Linked list (single, double)
+- 63 Mastermind
+- 64 Random image generator (parametric)
+- 65 Ulam spiral
+- 66 Klingon translator
+- 67 Prime number generator using a sieve
+- 68 Markov chains (random text generation)
+- 69 Graphical analog clock
+- 70 Two languages communicating with each other (C++ & Java, Lisp & Python, &c.)
+- 72 Typing speed calculator
+- 73 Name art in ASCII
+- 74 Towers of Hanoi (more disks, more poles)
+- 75 Quine
+- 76 IRC bot
+- 78 Knight's tour
+- 79 Chip-8 emulator
+- 80 Geekcode generator (3.12)
+- 82 Pong with variable vectors
+- 83 Battleships with AI
+- 84 Simple paint program
+- 85 TCP chat with basic encryption
+- 86 Incremental economy simulator (a la Time of Exploration)
+- 87 Encrypting data in images (steganography)
+- 89 Sine wave generator with pseudorandom numbers
+- 90 Flappy Bird
+- 91 Fourier transform (fast or 'slow'; + visualisation)
+- 92 Method ringing simulator
+- 93 Binary search (n-ary)
+- 94 Nintendo Oil Panic
+- 96 Dot & cross products of two vector (exterior product)
+- 97 Little Man computer simulation
+- 98 Lisp interpreter
+- 99 Enigma simulator with a configuration file (+ decrypt messages without known settings)
