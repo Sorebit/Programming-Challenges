@@ -8,8 +8,6 @@
 #include <ctime>
 #include <cstdlib>
 
-#include "beeper.h"
-
 class Chip8
 {
 public:
@@ -69,6 +67,7 @@ public:
 
 	// If set to 1 - emulator stops
 	bool halt_flag;
+	bool beep_flag;
 
 	// Options
 	// If set to 1 opcodes 0x8XY6 and 0x8XYE shift VX rather than shifting VY and copying it to VX

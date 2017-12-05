@@ -1,12 +1,23 @@
 #include "graphics.h"
 
-Graphics::Graphics(int _zoom) {
+Graphics::Graphics(int _zoom)
+{
 	window = NULL;
 	renderer = NULL;
 	zoom = _zoom;
 }
 
-Graphics::~Graphics() {}
+Graphics::~Graphics()
+{
+	// Destroy window and quit
+	SDL_DestroyWindow(window);
+	window = NULL;
+
+	SDL_DestroyRenderer(renderer);
+	renderer = NULL;
+
+	SDL_Quit();
+}
 
 bool Graphics::setup()
 {
@@ -35,16 +46,6 @@ bool Graphics::setup()
 		
 	return false;
 
-}
-
-void Graphics::destroy()
-{
-	// Destroy window and quit	
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
-	window = NULL;
-	renderer = NULL;
-	SDL_Quit();
 }
 
 void Graphics::draw(Chip8 chip)

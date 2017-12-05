@@ -1,10 +1,10 @@
-// TODO: fix blocking sound, fix terminal-like keyboard
+// TODO: Synthesize sound instead of playing it from a *.wav file
 
-#include <stdio.h>
+#include <cstdio>
+#include <unordered_map>
 #include "chip8.h"
 #include "graphics.h"
-
-unsigned short get_key(int keysym);
+#include "audio.h"
 
 int main(int argc, char const *argv[])
 {
@@ -20,26 +20,45 @@ int main(int argc, char const *argv[])
 	Chip8 chip(false);
 	// If true, application should exit
 	bool quit = false;
+
 	// Graphics
 	const int zoom = 8;
 	Graphics graphics(zoom);
-
-	// Initialize audio for those quality beeps
-	SDL_Init(SDL_INIT_AUDIO);
 
 	// Setup render system and input register input callbacks
 	if(graphics.setup())
 	{
 		std::cerr << "Failed to setup graphics!" << std::endl;
-		return 2;
+		quit = true;
+	}
+
+	// Audio
+	Audio audio;
+	if(audio.setup())
+	{
+		std::cerr << "Failed to setup audio!" << std::endl;
+		quit = true;
 	}
 
 	// Initialize system and load the game into memory
 	if(chip.load_game(filename))
 	{
 		std::cerr << "Could not open file: " << filename << std::endl;
-		return 3;
+		quit = true;
 	}
+
+	// Map SDL keysym (event.key.keysym.sym) to Chip-8 keys
+	// 1 2 3 4  -  1 2 3 c
+	// q w e r  -  4 5 6 d
+	// a s d f  -  7 8 9 e
+	// z x c v  -  a 0 b f
+	std::unordered_map<int, int> key_map 
+	{
+		{SDLK_1, 0x1}, {SDLK_2, 0x2}, {SDLK_3, 0x3}, {SDLK_4, 0xC},
+		{SDLK_q, 0x4}, {SDLK_w, 0x5}, {SDLK_e, 0x6}, {SDLK_r, 0xD},
+		{SDLK_a, 0x7}, {SDLK_s, 0x8}, {SDLK_d, 0x9}, {SDLK_f, 0xE},
+		{SDLK_z, 0xA}, {SDLK_x, 0x0}, {SDLK_c, 0xB}, {SDLK_v, 0xF},
+	};
 
 	// Main emulation loop
 	while(!quit)
@@ -55,17 +74,25 @@ int main(int argc, char const *argv[])
 			}
 			if(e.type == SDL_KEYDOWN)
 			{
-				unsigned char key_num = get_key(e.key.keysym.sym);
+				unsigned char key_num = key_map[e.key.keysym.sym];
 				chip.press_key(key_num);
 			}
 			if(e.type == SDL_KEYUP)
 			{
-				unsigned char key_num = get_key(e.key.keysym.sym);
+				unsigned char key_num = key_map[e.key.keysym.sym];
 				chip.release_key(key_num);
 			}
 		}
 		if(!chip.halt_flag && !chip.key_wait)
+		{
 			chip.emulate_cycle();
+		}
+		
+		if(chip.beep_flag)
+		{
+			audio.beep();
+			chip.beep_flag = false;
+		}
 
 		// If the draw flag is set, update the screen
 		if(chip.draw_flag)
@@ -76,36 +103,5 @@ int main(int argc, char const *argv[])
 		// SDL_Delay(0);
 	}
 
-	graphics.destroy();
-
 	return 0;
-}
-
-// Parse SDL keysym (event.key.keysym.sym) to Chip-8 key
-unsigned short get_key(int keysym)
-{
-	// 1 2 3 4  -  1 2 3 c
-	// q w e r  -  4 5 6 d
-	// a s d f  -  7 8 9 e
-	// z x c v  -  a 0 b f
-	switch(keysym)
-	{	
-		case SDLK_1: return 0x1;
-		case SDLK_2: return 0x2;
-		case SDLK_3: return 0x3;
-		case SDLK_4: return 0xC;
-		case SDLK_q: return 0x4;
-		case SDLK_w: return 0x5;
-		case SDLK_e: return 0x6;
-		case SDLK_r: return 0xD;
-		case SDLK_a: return 0x7;
-		case SDLK_s: return 0x8;
-		case SDLK_d: return 0x9;
-		case SDLK_f: return 0xE;
-		case SDLK_z: return 0xA;
-		case SDLK_x: return 0x0;
-		case SDLK_c: return 0xB;
-		case SDLK_v: return 0xF;
-	}
-	return -1;
 }

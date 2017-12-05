@@ -38,7 +38,6 @@ void Chip8::initialize(bool _shift_x)
 
 void Chip8::emulate_cycle()
 {
-	static Beeper b;
 	// Fetch opcode
 	opcode = memory[pc] << 8 | memory[pc + 1];
 	short unsigned x   = (opcode & 0x0F00) >> 8;
@@ -46,6 +45,7 @@ void Chip8::emulate_cycle()
 	short unsigned nn  = (opcode & 0x00FF) >> 0;
 	short unsigned nnn = (opcode & 0x0FFF) >> 0;
 	draw_flag = false;
+	beep_flag = false;
 	skip_pc_add_flag = false;
 	key_wait = 0;
 
@@ -298,13 +298,7 @@ void Chip8::emulate_cycle()
 	{
 		if(sound_timer == 1)
 		{
-			int duration = 64;
-			double Hz = 440;
-
-			b.beep(Hz, duration);
-			b.wait();
-			b.beep(Hz, duration);
-			b.wait();
+			beep_flag = true;
 		}
 		--sound_timer;
 	}

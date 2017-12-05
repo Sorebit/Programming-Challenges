@@ -8,13 +8,12 @@
 class Graphics
 {
 private:
-	SDL_Window* window; 
-	SDL_Renderer* renderer;
+	SDL_Window *window; 
+	SDL_Renderer *renderer;
 	int zoom;
 public:
 	Graphics(int _zoom);
 	~Graphics();
 	bool setup();
 	void draw(Chip8 chip);
-	void destroy();
 };
