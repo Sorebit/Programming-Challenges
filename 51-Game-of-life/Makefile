@@ -1,5 +1,5 @@
 CXX = g++
-OBJS = main.o
+OBJS = main.o graphics.o life.o
 LIBS = `sdl2-config --libs`
 CXXFLAGS = --std=c++11 -Wall -Werror
 CXXFLAGS += `sdl2-config --cflags`
@@ -14,5 +14,8 @@ all: $(EXE)
 $(EXE): $(OBJS)
 	$(CXX) -o $(EXE) $(CXXFLAGS) $(OBJS) $(LIBS)
 
-clean:
-	rm $(EXE) $(OBJS)
+rmobj:
+	rm $(OBJS)
+
+clean: rmobj
+	rm $(EXE)
