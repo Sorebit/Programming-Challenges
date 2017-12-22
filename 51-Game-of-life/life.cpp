@@ -1,12 +1,14 @@
 #include "life.h"
 
-Life::Life(int _width, int _height, std::string rules)
+Life::Life(int _width, int _height, std::string rules, bool _torus)
 {
 	width = _width;
 	height = _height;
+	torus = _torus;
 
 	board.resize(width * height, 0);
 	step_num = 0;
+	paused = false;
 
 	std::cout << "RULES: " << rules << std::endl;
 	bool delimiter_reached = false;
@@ -43,12 +45,18 @@ int Life::count_neighbours(int x, int y)
 		for(int j = -1; j <= 1; ++j)
 		{
 			int xj = x + j;
-			// if(xj < 0 || xj >= width || (i == 0 && j == 0)) 
-			// 	continue;
-			if(xj < 0)
-				xj += width;
-			if(xj >= width)
-				xj -= width;
+			if(torus)
+			{
+				if(xj < 0)
+					xj += width;
+				if(xj >= width)
+					xj -= width;
+			}
+			else
+			{	
+				if(xj < 0 || xj >= width)
+					continue;
+			}
 			if(i == 0 && j == 0)
 				continue;
 			if(board[yi * width + xj])
