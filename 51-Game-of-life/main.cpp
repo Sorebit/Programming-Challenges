@@ -1,26 +1,38 @@
+// TODO:
+// [ ] Separate SDL clock and board clock (ie. it runs at ex. 60fps and still does 10 ticks per sec)
+
 #include <SDL2/SDL.h>
 #include <iostream>
+#include <regex>
 
 #include "life.h"
 #include "graphics.h"
 
+std::string parse_rules(std::string a, std::string b);
 
 int main(int argc, char *argv[])
 {
-	const int Board_height = 32;
-	const int Board_width = 32;
+	const int Board_height = 64;
+	const int Board_width = 64;
+	const int Board_zoom = 15;
 	bool interrupted = false;
+	bool mouse_pressed[2] = { false, false };
+	std::string rules;
 	
 	std::cout << "Game of life" << std::endl;
-	Graphics graphics(Board_width, Board_height, 15);
+	Graphics graphics(Board_width, Board_height, Board_zoom);
 	graphics.setup();
 
-	Life life(Board_width, Board_height, "23/3", true);
+	if(argc == 3)
+		rules = parse_rules(std::string(argv[1]), std::string(argv[2]));
+	else
+	{
+		std::cout << "Expected 2 arguments, falling back to rules 23/3" << std::endl;
+		rules = "23/3";
+	}
 
-	life.board[Board_width + 4] = life.board[Board_width * 2 + 2] = 
-	life.board[Board_width * 2 + 4] = life.board[Board_width * 3 + 3] = 
-	life.board[Board_width * 3 + 4] = 1;
-	life.board[Board_width * 6 + 3] = life.board[Board_width * 7 + 3] = life.board[Board_width * 8 + 3] = 1;
+
+	Life life(Board_width, Board_height, rules, false);
 
 	while(!interrupted)
 	{
@@ -41,10 +53,40 @@ int main(int argc, char *argv[])
 			}
 			if(e.type == SDL_KEYUP)
 			{
-				// int key = e.key.keysym.sym;
 
 			}
+			if(e.type == SDL_MOUSEBUTTONDOWN)
+			{
+				if (e.button.button == SDL_BUTTON_LEFT) mouse_pressed[0] = true;
+				if (e.button.button == SDL_BUTTON_RIGHT) mouse_pressed[1] = true;
+			}
+			if(e.type == SDL_MOUSEBUTTONUP)
+			{
+				if (e.button.button == SDL_BUTTON_LEFT) mouse_pressed[0] = false;
+				if (e.button.button == SDL_BUTTON_RIGHT) mouse_pressed[1] = false;
+			}
 		}
+		SDL_GetMouseState(&graphics.mx, &graphics.my);
+		if(SDL_GetWindowFlags(graphics.window) & SDL_WINDOW_MOUSE_FOCUS)
+		{
+			// std::cout << mx << " " << my << std::endl;
+			int px = std::ceil((float)graphics.mx / graphics.zoom) - 1;
+			int py = std::ceil((float)graphics.my / graphics.zoom) - 1;
+			if(py >= 0 && px >= 0 && px < Board_width && py < Board_height)
+			{
+				if(mouse_pressed[0])
+				{
+					// std::cout << "Left mouse button down " << mx << ", " << my << std::endl;
+					life.board[py * life.width + px] = 1;
+				}
+				if(mouse_pressed[1])
+				{
+					// std::cout << "Right mouse button down " << mx << ", " << my << std::endl;
+					life.board[py * life.width + px] = 0;
+				}
+			}
+		}
+
 
 		graphics.draw(life);
 		if(!life.paused)
@@ -56,4 +98,44 @@ int main(int argc, char *argv[])
 	}
 
 	return 0;
+}
+
+// I couldn't get ^[0-8]*/[0-8]*$ to work
+std::string parse_rules(std::string a, std::string b)
+{
+	std::string rules = "";
+	std::regex base_regex("^[0-8]*$");
+	std::smatch base_match;
+
+	if(a != "-")
+	{	
+		if(std::regex_search(a, base_match, base_regex))
+		{
+			rules += a;
+		}
+		else 
+		{
+			std::cerr << "Regex a failed, falling back to rules 23/3" << std::endl;
+			rules = "23/3";
+			return rules;
+		}
+	}
+
+	rules += "/";
+
+	if(b != "-")
+	{	
+		if(std::regex_search(b, base_match, base_regex))
+		{
+			rules += b;
+		}
+		else
+		{
+			std::cerr << "Regex b failed, falling back to rules 23/3" << std::endl;
+			rules = "23/3";
+		}
+	}
+
+
+	return rules;
 }

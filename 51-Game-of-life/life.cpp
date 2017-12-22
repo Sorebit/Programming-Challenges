@@ -8,7 +8,7 @@ Life::Life(int _width, int _height, std::string rules, bool _torus)
 
 	board.resize(width * height, 0);
 	step_num = 0;
-	paused = false;
+	paused = true;
 
 	std::cout << "RULES: " << rules << std::endl;
 	bool delimiter_reached = false;
@@ -20,6 +20,8 @@ Life::Life(int _width, int _height, std::string rules, bool _torus)
 			continue;
 		}
 		int n = static_cast<int>(i - '0');
+		if(n < 0 || n > 8)
+			continue;
 		if(!delimiter_reached)
 			rules_live.insert(n);
 		else
@@ -38,10 +40,19 @@ int Life::count_neighbours(int x, int y)
 	for(int i = -1; i <= 1; ++i)
 	{
 		int yi = y + i;
-		if(yi < 0)
-			yi += height;
-		else if(yi >= height)
-			yi -= height;
+		if(torus)
+		{		
+			if(yi < 0)
+				yi += height;
+			else if(yi >= height)
+				yi -= height;
+		}
+		else
+		{
+			if(yi < 0 || yi >= height)
+				continue;
+		}
+
 		for(int j = -1; j <= 1; ++j)
 		{
 			int xj = x + j;

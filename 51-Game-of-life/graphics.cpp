@@ -7,6 +7,8 @@ Graphics::Graphics(int _width, int _height, int _zoom)
 	zoom = _zoom;
 	width = _width;
 	height = _height;
+	mx = -1;
+	my = -1;
 }
 
 Graphics::~Graphics()
@@ -31,7 +33,8 @@ bool Graphics::setup()
 	}
 
 	// Create window
-	window = SDL_CreateWindow("Game of Life", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width*zoom, height*zoom, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("Game of Life", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 
+							  width*zoom, height*zoom, SDL_WINDOW_SHOWN);
 	if(window == NULL)
 	{
 		std::cerr << "Window could not be created! SDL Error: " << SDL_GetError() << std::endl;
@@ -58,6 +61,7 @@ bool Graphics::setup()
 
 void Graphics::draw(Life life)
 {
+
 	// Clear screen
 	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 	SDL_RenderClear(renderer);
@@ -76,7 +80,7 @@ void Graphics::draw(Life life)
 		}
 		else
 		{
-			SDL_SetRenderDrawColor(renderer, 0xEE, 0xEE, 0xEE, 0xFF);	
+			SDL_SetRenderDrawColor(renderer, 0xDD, 0xDD, 0xDD, 0xFF);	
 		}
 
 		SDL_Rect fillRect = { x*zoom + 1, y*zoom + 1, zoom - 2, zoom - 2};
@@ -85,29 +89,18 @@ void Graphics::draw(Life life)
 
 	if(life.paused)
 	{		
-		// Draw pause symbol
-		int h = (std::min(width, height) * zoom) / 8;
-		int w = h / 3;
-		int x = (width * zoom ) / 2 - (w * 3) / 2;
-		int y = (height * zoom - h) / 2;
-		int p = 2; // padding
-		SDL_Rect fillRect;
-
 		// Draw overlay; 
-		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0x40);
-		fillRect = { 0, 0, width * zoom, height * zoom };
+		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0x17);
+		SDL_Rect fillRect = { 0, 0, width * zoom, height * zoom };
 		SDL_RenderFillRect(renderer, &fillRect);
+	}
 
-		SDL_SetRenderDrawColor(renderer, 0x60, 0x60, 0x60, 0xFF);
-		fillRect = { x - p, y - p, w + 2*p, h + 2*p};
-		SDL_RenderFillRect(renderer, &fillRect);
-		fillRect = { x + w * 2 - p, y - p, w + 2*p, h + 2*p};
-		SDL_RenderFillRect(renderer, &fillRect);
-
-		SDL_SetRenderDrawColor(renderer, 0xE0, 0xE0, 0xE0, 0xFF);
-		fillRect = { x, y, w, h };
-		SDL_RenderFillRect(renderer, &fillRect);
-		fillRect = { x + w * 2, y, w, h };
+	// Draw mouse
+	{
+		int px = std::ceil((float)mx / zoom) - 1;
+		int py = std::ceil((float)my / zoom) - 1;
+		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0x90);
+		SDL_Rect fillRect = { px * zoom, py * zoom, zoom, zoom };
 		SDL_RenderFillRect(renderer, &fillRect);
 	}
 
