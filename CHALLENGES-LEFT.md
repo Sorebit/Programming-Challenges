@@ -64,7 +64,6 @@
 - 75 Quine
 - 76 IRC bot
 - 78 Knight's tour
-- 79 Chip-8 emulator
 - 80 Geekcode generator (3.12)
 - 82 Pong with variable vectors
 - 83 Battleships with AI
