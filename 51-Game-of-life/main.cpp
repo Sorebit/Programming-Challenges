@@ -1,6 +1,12 @@
 // TODO:
 // [ ] Separate SDL clock and board clock (ie. it runs at ex. 60fps and still does 10 ticks per sec)
 
+// Usage:
+// ./life.app <rules_live> <rules_born>
+// ex. ./life.app 23 3 => RULES: 23/3
+// ex. ./life.app - 2  => RULES: /2
+// ex. .life.app 123 - => RULES: 123/
+
 #include <SDL2/SDL.h>
 #include <iostream>
 #include <regex>
@@ -12,17 +18,18 @@ std::string parse_rules(std::string a, std::string b);
 
 int main(int argc, char *argv[])
 {
-	const int Board_height = 64;
-	const int Board_width = 64;
+	const int Board_height = 32;
+	const int Board_width = 32;
 	const int Board_zoom = 15;
+
 	bool interrupted = false;
 	bool mouse_pressed[2] = { false, false };
-	std::string rules;
 	
 	std::cout << "Game of life" << std::endl;
 	Graphics graphics(Board_width, Board_height, Board_zoom);
 	graphics.setup();
-
+	
+	std::string rules;
 	if(argc == 3)
 		rules = parse_rules(std::string(argv[1]), std::string(argv[2]));
 	else
@@ -31,11 +38,13 @@ int main(int argc, char *argv[])
 		rules = "23/3";
 	}
 
-
+	// Create a finite (non-torus) board
 	Life life(Board_width, Board_height, rules, false);
 
+	// Main loop
 	while(!interrupted)
 	{
+		// Process events
 		SDL_Event e;
 		while(SDL_PollEvent(&e))
 		{
@@ -51,10 +60,6 @@ int main(int argc, char *argv[])
 					life.paused ^= 1;
 				}
 			}
-			if(e.type == SDL_KEYUP)
-			{
-
-			}
 			if(e.type == SDL_MOUSEBUTTONDOWN)
 			{
 				if (e.button.button == SDL_BUTTON_LEFT) mouse_pressed[0] = true;
@@ -66,6 +71,8 @@ int main(int argc, char *argv[])
 				if (e.button.button == SDL_BUTTON_RIGHT) mouse_pressed[1] = false;
 			}
 		}
+
+		// Process mouse state
 		SDL_GetMouseState(&graphics.mx, &graphics.my);
 		if(SDL_GetWindowFlags(graphics.window) & SDL_WINDOW_MOUSE_FOCUS)
 		{
@@ -76,25 +83,23 @@ int main(int argc, char *argv[])
 			{
 				if(mouse_pressed[0])
 				{
-					// std::cout << "Left mouse button down " << mx << ", " << my << std::endl;
 					life.board[py * life.width + px] = 1;
 				}
 				if(mouse_pressed[1])
 				{
-					// std::cout << "Right mouse button down " << mx << ", " << my << std::endl;
 					life.board[py * life.width + px] = 0;
 				}
 			}
 		}
 
-
 		graphics.draw(life);
+
 		if(!life.paused)
 		{
 			life.step();
 		}
-		SDL_Delay(1000 / 10);
 
+		SDL_Delay(1000 / 10);
 	}
 
 	return 0;

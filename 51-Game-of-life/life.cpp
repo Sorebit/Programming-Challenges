@@ -79,8 +79,6 @@ int Life::count_neighbours(int x, int y)
 
 void Life::step()
 {
-	// std::cout << "Step: " << step_num << std::endl;
-
 	std::vector<int> tmp;
 	tmp.resize(board.size());
 
