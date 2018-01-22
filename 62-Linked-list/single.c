@@ -1,3 +1,4 @@
+// gcc -std=c99 single.c -o single.app
 #include <stdio.h>
 #include <stdlib.h>
 
