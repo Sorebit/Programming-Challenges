@@ -33,7 +33,7 @@ bool Graphics::setup()
 	}
 
 	// Create window
-	window = SDL_CreateWindow("Game of Life (-/-) Tick: 0", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 
+	window = SDL_CreateWindow("Cellular automaton (-/-) Tick: 0", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 
 							  width*zoom, height*zoom, SDL_WINDOW_SHOWN);
 	if(window == NULL)
 	{
@@ -59,7 +59,7 @@ bool Graphics::setup()
 
 }
 
-void Graphics::draw(Life life)
+void Graphics::draw(Board board)
 {
 
 	// Clear screen
@@ -70,11 +70,11 @@ void Graphics::draw(Life life)
 	SDL_SetRenderDrawColor(renderer, 0xEE, 0xEE, 0xEE, 0xFF);
 
 	// Draw cells
-	for(unsigned i = 0; i < life.board.size(); ++i)
+	for(unsigned i = 0; i < board.board.size(); ++i)
 	{
-		int x = i % life.width;
-		int y = i / life.width;
-		if(!life.board[i])
+		int x = i % board.width;
+		int y = i / board.width;
+		if(!board.board[i])
 		{
 			SDL_SetRenderDrawColor(renderer, 0x30, 0x30, 0x30, 0xFF);
 		}
@@ -87,7 +87,7 @@ void Graphics::draw(Life life)
 		SDL_RenderFillRect(renderer, &fillRect);
 	}
 
-	if(life.paused)
+	if(board.paused)
 	{		
 		// Draw overlay; 
 		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0x17);

@@ -1,5 +1,5 @@
 CXX = g++
-OBJS = main.o graphics.o life.o
+OBJS = main.o graphics.o board.o
 LIBS = `sdl2-config --libs`
 CXXFLAGS = --std=c++11 -Wall -Werror
 CXXFLAGS += `sdl2-config --cflags`

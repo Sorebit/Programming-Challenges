@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
-#include "life.h"
+#include "board.h"
 
 class Graphics
 {
@@ -17,6 +17,6 @@ public:
 	Graphics(int _width, int _height, int _zoom);
 	~Graphics();
 	bool setup();
-	void draw(Life life);
+	void draw(Board board);
 	void set_window_title(std::string title);
 };

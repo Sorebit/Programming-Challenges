@@ -9,7 +9,7 @@
 #include <regex>
 #include <chrono>
 		
-#include "life.h"
+#include "board.h"
 #include "graphics.h"
 
 std::string parse_rules(std::string a, std::string b);
@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 	bool interrupted = false;
 	bool mouse_pressed[2] = { false, false };
 	
-	std::cout << "Game of life" << std::endl;
+	std::cout << "Cellular automaton" << std::endl;
 	Graphics graphics(Board_width, Board_height, Board_zoom);
 	graphics.setup();
 	
@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 	}
 
 	// Create a finite (non-torus) board
-	Life life(Board_width, Board_height, rules, false);
+	Board board(Board_width, Board_height, rules, false);
 
 	// Main loop
 	while(!interrupted)
@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
 				int key = e.key.keysym.sym;
 				if(key == SDLK_SPACE)
 				{
-					life.paused ^= 1;
+					board.paused ^= 1;
 				}
 			}
 			if(e.type == SDL_MOUSEBUTTONDOWN)
@@ -88,25 +88,25 @@ int main(int argc, char *argv[])
 			{
 				if(mouse_pressed[0])
 				{
-					life.board[py * life.width + px] = 1;
+					board.board[py * board.width + px] = 1;
 				}
 				if(mouse_pressed[1])
 				{
-					life.board[py * life.width + px] = 0;
+					board.board[py * board.width + px] = 0;
 				}
 			}
 		}
 
 		now = std::chrono::system_clock::now();
         
-        if(now >= next_tick && !life.paused)
+        if(now >= next_tick && !board.paused)
         {
-			life.step();
+			board.step();
             next_tick = now + delay;
-			graphics.set_window_title("Game of Life (" + rules + ") Tick: " + std::to_string(life.step_num));
+			graphics.set_window_title("Cellular automaton (" + rules + ") Tick: " + std::to_string(board.step_num));
         }
 
-		graphics.draw(life);
+		graphics.draw(board);
 
 		SDL_Delay(10);
 	}
