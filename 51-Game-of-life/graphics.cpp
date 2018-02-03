@@ -33,7 +33,7 @@ bool Graphics::setup()
 	}
 
 	// Create window
-	window = SDL_CreateWindow("Game of Life", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 
+	window = SDL_CreateWindow("Game of Life (-/-) Tick: 0", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 
 							  width*zoom, height*zoom, SDL_WINDOW_SHOWN);
 	if(window == NULL)
 	{
@@ -106,4 +106,9 @@ void Graphics::draw(Life life)
 
 	// Update screen
 	SDL_RenderPresent(renderer);
+}
+
+void Graphics::set_window_title(std::string title)
+{
+	SDL_SetWindowTitle(window, title.c_str());
 }

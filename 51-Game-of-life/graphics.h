@@ -2,6 +2,7 @@
 
 #include <SDL2/SDL.h>
 #include <iostream>
+#include <string>
 
 #include "life.h"
 
@@ -17,4 +18,5 @@ public:
 	~Graphics();
 	bool setup();
 	void draw(Life life);
+	void set_window_title(std::string title);
 };

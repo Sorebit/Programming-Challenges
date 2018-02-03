@@ -1,6 +1,3 @@
-// TODO:
-// [ ] Separate SDL clock and board clock (ie. it runs at ex. 60fps and still does 10 ticks per sec)
-
 // Usage:
 // ./life.app <rules_live> <rules_born>
 // ex. ./life.app 23 3 => RULES: 23/3
@@ -10,7 +7,8 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 #include <regex>
-
+#include <chrono>
+		
 #include "life.h"
 #include "graphics.h"
 
@@ -18,6 +16,13 @@ std::string parse_rules(std::string a, std::string b);
 
 int main(int argc, char *argv[])
 {
+	using mili_t = std::chrono::milliseconds;
+	using tp_t = std::chrono::system_clock::time_point;
+
+	tp_t now = std::chrono::system_clock::now();
+	tp_t next_tick = std::chrono::system_clock::now();
+	mili_t delay(100);
+
 	const int Board_height = 32;
 	const int Board_width = 32;
 	const int Board_zoom = 15;
@@ -92,14 +97,18 @@ int main(int argc, char *argv[])
 			}
 		}
 
+		now = std::chrono::system_clock::now();
+        
+        if(now >= next_tick && !life.paused)
+        {
+			life.step();
+            next_tick = now + delay;
+			graphics.set_window_title("Game of Life (" + rules + ") Tick: " + std::to_string(life.step_num));
+        }
+
 		graphics.draw(life);
 
-		if(!life.paused)
-		{
-			life.step();
-		}
-
-		SDL_Delay(1000 / 10);
+		SDL_Delay(10);
 	}
 
 	return 0;
