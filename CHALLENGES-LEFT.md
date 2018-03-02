@@ -57,7 +57,6 @@
 - 75 Quine
 - 76 IRC bot
 - 78 Knight's tour
-- 82 Pong with variable vectors
 - 83 Battleships with AI
 - 84 Simple paint program
 - 86 Incremental economy simulator (a la Time of Exploration)
