@@ -11,3 +11,4 @@ It will create an executable *.app
 ### Solutions with their own repos
 - [10 - Random sentence generator (Actually a proverb generator)](https://github.com/Sorebit/jamnik.js)
 - [70 - Two languages communicating with each other (WIP TCP/IP server in node, example client in python)](https://github.com/Ricello/tcp-game-server)
+- [82 - Pong in NES assembly](https://gist.github.com/Sorebit/fc1731c1a8779591d8af4dad0b5a61af)
