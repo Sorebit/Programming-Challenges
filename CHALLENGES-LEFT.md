@@ -49,7 +49,6 @@
 - 64 Random image generator (parametric)
 - (65/67) Ulam spiral / Prime number generator using a sieve
 - 66 Klingon translator
-- 68 Markov chains (random text generation)
 - 70 Two languages communicating with each other (C++ & Java, Lisp & Python, &c.)
 - 72 Typing speed calculator
 - 73 Name art in ASCII
@@ -66,7 +65,6 @@
 - 91 Fourier transform (fast or 'slow'; + visualisation)
 - 92 Method ringing simulator
 - 93 Binary search (n-ary)
-- 96 Dot & cross products of two vector (exterior product)
 - 97 Little Man computer simulation
 - 98 Lisp interpreter [C]
 - 99 Enigma simulator with a configuration file (+ decrypt messages without known settings)
