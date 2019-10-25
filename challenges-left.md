@@ -1,5 +1,8 @@
-### Definitely:
+### In progress:
 - 06 Rock, paper, scissors (+ lizard, Spock)
+- 52 Web crawler
+
+### Definitely:
 - 30 Cipher encryption (as part of 48/85 encryption options)
 - (48/85) TCP chat with basic encryption / Telnet server (+ client, netcat clone?)
 - 53 Text editor
@@ -34,8 +37,6 @@
 - 47 FTP client (+ server)
 - 49 IMP interpreter
 - 50 Tetris
-- 51 Conway's game of life (other cell. automata)
-- 52 Web crawler
 - 54 RSS feed reader
 - 56 Mandelbrot set (+ other fractals)
 - 58 Custom markup -> HTML converter
@@ -51,7 +52,7 @@
 - 84 Simple paint program
 - 86 Incremental economy simulator (a la Time of Exploration)
 - 87 Encrypting data in images (steganography)
-- 90 Flappy Bird
+- 90 Flappy Bird 
 - 97 Little Man computer simulation
 - 98 Lisp interpreter [C]
 - 99 Enigma simulator with a configuration file (+ decrypt messages without known settings)
