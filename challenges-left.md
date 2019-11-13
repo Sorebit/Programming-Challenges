@@ -34,7 +34,6 @@
 - 47 FTP client (+ server)
 - 49 IMP interpreter
 - 50 Tetris
-- 51 Conway's game of life (other cell. automata)
 - 52 Web crawler
 - 54 RSS feed reader
 - 56 Mandelbrot set (+ other fractals)
