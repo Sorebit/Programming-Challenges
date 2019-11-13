@@ -17,3 +17,8 @@ for i in range(0, len(l)):
     print('   ' + chr(c) + l[i] + chr(c) + ',')
 for i in range(3, len(l)):
     print(l[i])
+
+# Quine ends above this line
+# TODO: write a quine that produces a quine in another language which in turn produces the first one
+# As in Python -> C++ -> C# -> back to Python
+# (A quine-relay or ouroboros program)
