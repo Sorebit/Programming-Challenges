@@ -7,11 +7,17 @@ Using /g/'s huge list of programming challenges, I aim to complete almost every 
 - [Ommited challenges](./challenges-omitted.md)
 - [Original challenge list hosted on imgur](http://i.imgur.com/FjhA208.png)
 
-### Compiling
+## Build
 
-Enter directory with challenge number and run `make`
+Unless stated otherwise in a README file, refer to following instructions.
 
-It will create an executable *.app
+### C/C++
+
+Run `make` inside selected folder, then run the created `*.app` file.
+
+### Python
+
+Run `main.py` or `app.py` (whichever present in folder) with Python >= 3.0.
 
 ### Solutions with their own repos
 
