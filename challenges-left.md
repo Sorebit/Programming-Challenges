@@ -58,8 +58,8 @@
 - 99 Enigma simulator with a configuration file (+ decrypt messages without known settings)
 
 ### Algorithms and problems done at uni (rewrite for future reference and laughs):
-- 17 Eulerian path
-- 44 Dijkstra's Algorithm
+- 17 Eulerian path (Fleury
+- 44 Dijkstra's Algorithm (+ A*, Bellman-Ford, Floyd-Warshall, Johnson, Kruskal, Prim, TAMST)
 - 57 Sorting algorithms (+ visualization)
 - 60 Flow in a network (Ford-Fulkerson algo.)
 - 78 Knight's tour
