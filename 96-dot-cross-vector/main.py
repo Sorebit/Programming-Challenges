@@ -14,8 +14,9 @@ def cross_product_2(a, b):
 # This method assumes valid vectors of length 3
 def cross_product_3(a, b):
     return [
-        a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2],
-        a[0] * b[1] - a[1] * b[0]
+        a[1] * b[2] - a[2] * b[1],
+        a[2] * b[0] - a[0] * b[2],
+        a[0] * b[1] - a[1] * b[0],
     ]
 
 
@@ -43,9 +44,7 @@ def read_method():
 # Handle vectors input
 def read_vectors(method):
     while True:
-        print(
-            "\nInput two vectors of the same length (ex. 1.0 2e3 4 then .5 6 7)"
-        )
+        print("\nInput two vectors of the same length (ex. 1.0 2e3 4 then .5 6 7)")
         v = input("First> ")
         v = v.strip()
         a = re.split("\s+", v)
@@ -58,9 +57,7 @@ def read_vectors(method):
             continue
         # Only support 2 and 3 dim vectors for cross product
         if method == "cross" and not (len(a) == 2 or len(a) == 3):
-            print(
-                "Error: Cross product only supports 2 and 3 dimensional vectors!"
-            )
+            print("Error: Cross product only supports 2 and 3 dimensional vectors!")
             continue
         # Dimensions as expected
         a = [float(i) for i in a]

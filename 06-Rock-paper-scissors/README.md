@@ -1,6 +1,9 @@
 # 06 - Rock, paper, scissors (lizard, spock)
 Wikipedia: https://en.wikipedia.org/wiki/Rock%E2%80%93paper%E2%80%93scissors
 
+## Requirements
+- [Python](https://www.python.org/) 3.6 or later
+
 ## Concept 
 - Server accepts tcp connections (so that telnet works and I don't have to write a custom client)
 - Server holds rooms (max number is setup in config)

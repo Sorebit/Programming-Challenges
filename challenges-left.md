@@ -1,10 +1,11 @@
 ### In progress:
 - 06 Rock, paper, scissors (+ lizard, Spock)
 - 52 Web crawler
+- (65/67) Ulam spiral / Prime number generator using a sieve
 
 ### Definitely:
-- 30 Cipher encryption (as part of 48/85 encryption options)
 - (48/85) TCP chat with basic encryption / Telnet server (+ client, netcat clone?)
+  - 30 Cipher encryption (as part of 48/85 encryption options)
 - 53 Text editor
 - 89 Sine wave generator with pseudorandom numbers
 - 91 Fourier transform (fast or 'slow'; + visualisation)
@@ -29,6 +30,7 @@
 - 34 Genetic algorithms on polygons
 - 35 Benford's law
 - 37 Static website generator
+  - 58 Custom markup -> HTML converter
 - 38 Crossword game
 - 40 Perlin noise
 - 41 Image viewer
@@ -39,10 +41,8 @@
 - 50 Tetris
 - 54 RSS feed reader
 - 56 Mandelbrot set (+ other fractals)
-- 58 Custom markup -> HTML converter
 - 63 Mastermind
 - 64 Random image generator (parametric)
-- (65/67) Ulam spiral / Prime number generator using a sieve
 - 66 Klingon translator
 - 70 Two languages communicating with each other (C++ & Java, Lisp & Python, &c.)
 - 73 Name art in ASCII
